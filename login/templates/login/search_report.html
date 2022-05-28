@@ -1,0 +1,69 @@
+{% extends 'login/police_basic.html' %}
+{% block title %}EIA (Police)-Report Details{% endblock %}
+{% block css %} 
+.container{
+    margin-top:25px;
+    margin-bottom:25px;
+}
+{% endblock %} 
+{% block body %} 
+
+<div class="container">
+    <p><h3>Report ID: {{result.report_id}}</h3></p>
+    <p><b>Name: </b>{{result.name}}</p>
+    <p><b>Mobile: </b>{{result.mobile}}</p>
+    <p><b>Aadhar: </b>{{result.aadhar}}</p>
+    <p><b>Gender: </b>{{result.gender}}</p>
+    <p><b>Residence: </b>{{result.residence}}</p>
+    <p><b>Description: </b>{{result.description}}</p>
+    <p><b>Uploaded Pictures: </b>
+    {% if result.picture1 != "False" %}
+    <a href="/media/{{result.picture1}}">Image 1</a>
+    {% endif %}
+    {% if result.picture2 != "False" %}
+    <a href="/media/{{result.picture2}}">Image 2</a>
+    {% endif %}
+    {% if result.picture3 != "False" %}
+    <a href="/media/{{result.picture3}}">Image 3</a>
+    {% endif %}
+    </p>
+    <p><b>Uploaded Video: </b>
+    {% if result.video != "False" %}
+    <a href="/media/{{result.video}}">Video</a>
+    {% endif %}
+    </p>
+    <div class="col my-4">
+        <h4>Report Updates:</h4>
+            <table class="table mt-4" id="mytable">
+                <thead>
+                <tr>
+                <th>Update</th>
+                <th>Update On</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in update reversed %} 
+                    {% if i.update_desc != "" %}
+                    <tr>
+                        <td>{{i.update_desc}}</td>
+                        <td>{{i.timestamp}}</td>
+                            
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+                </table>
+        </div>
+    <a href="/login/update_report/{{result.report_id}}" class="btn btn-dark">Update Report</a>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    $(document).ready(function(){
+        $('#mytable').DataTable();
+    });
+    $('#mytable').DataTable({
+        "sDom":"ftipr"
+    })
+</script>
+{% endblock %}

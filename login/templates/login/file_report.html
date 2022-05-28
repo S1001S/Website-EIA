@@ -1,0 +1,74 @@
+{% extends 'login/citizen_basic.html' %}
+{% block title %}EIA (Citizen)-File Report{% endblock %}
+{% block css %}
+   .container{
+       margin-top:25px;
+       margin-bottom:25px;
+   }
+{% endblock %}
+{% block body %}
+<div class="container">
+    <h2>File a Report</h2>
+    <form class="row g-3 mt-2" method="post" action="/login/file_report/" enctype="multipart/form-data">{% csrf_token %}
+    <div class="col-md-4">
+      <label for="name" class="form-label">Full Name</label>
+      <input type="text" class="form-control" id="name" name="name" value="{{user.first_name}} {{user.last_name}}" readonly>
+    </div>
+    <div class="col-md-3">
+        <label for="mobile" class="form-label">Mobile Number</label>
+        <input type="tel" class="form-control" id="mobile" name="mobile" required>
+    </div>
+    <div class="col-md-3">
+        <label for="aadhar" class="form-label">Aadhar Number</label>
+        <input type="text" class="form-control" id="aadhar" name="aadhar" value="{{user.username}}" readonly>
+    </div>
+    <div class="col-md-2">
+      <label for="gender" class="form-label">Gender</label>
+      <input type="text" class="form-control" id="gender" name="gender" required>
+    </div>
+    
+    <div class="col-12">
+      <label for="residence" class="form-label">Residence</label>
+      <input type="text" class="form-control" id="residence" name="residence" placeholder="Residence" required>
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+    </div>
+    <div class="col-md-12">
+        <label for="picture" class="form-label">Upload any related pictures</label>
+        <input type="file" class="form-control mt-2" id="picture1" name="picture1" accept="image/*">
+        <input type="file" class="form-control mt-2" id="picture2" name="picture2" accept="image/*">
+        <input type="file" class="form-control mt-2" id="picture3" name="picture3" accept="image/*">
+    </div>
+    <div class="col-md-12">
+      <label for="video" class="form-label">Upload any related video file</label>
+      <input type="file" class="form-control mt-2" id="video" name="video" accept="video/*">
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-dark">File Report</button>
+    </div>
+  </form>
+  <div class="col my-4">
+    {% if reports|length > 0 %}
+    <h3>Your Previous Reports:</h3>
+        <div class="my-4">
+            <ul class="list-group" id="stat">
+              {% for i in reports %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+              Report Id:{{i.report_id}}<span><a href="/login/reportView/{{i.report_id}}" class="btn btn-dark">View</a></span></li>
+              {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+{% if thank %}
+       alert('Your Report has been filed at our investigative agency. Your report id is {{id}}. You can track the updates in your report using this id.')
+       document.location="/login/citizen_login";
+{% endif %}
+</script>
+{% endblock %}

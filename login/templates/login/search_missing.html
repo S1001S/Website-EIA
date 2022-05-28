@@ -1,0 +1,40 @@
+{% extends 'login/police_basic.html' %}
+{% block title %}EIA (Police)-Missing Case Details{% endblock %}
+{% block css %} 
+    .container{
+        margin-top:25px;
+        margin-bottom:25px;
+    }
+{% endblock %} 
+{% block body %} 
+
+<div class="container">
+    <p><h3>Missing ID: {{result.id}}</h3></p>
+    <p><b>Name: </b>{{result.name}}</p>
+    <p><b>Age: </b>{{result.age}}</p>
+    <p><b>Gender: </b>{{result.gender}}</p>
+    <p><b>Contact person: </b>{{result.contactperson}}</p>
+    <p><b>Contact number: </b>{{result.contactnumber}}</p>
+    {% if result.foundby != "" %}
+    <p><b>Found By: </b>{{result.foundby}}</p>
+    {% else %}
+    <p><b>Status: </b> Missing</p>
+    {% endif %}
+    <div class="row"> 
+        <div class="col-md-6 mt-2">
+            <h4>Picture:</h4>
+            <div class="card">
+                <img src="/media/{{result.picture}}" class="card-img-top" alt="...">
+              </div>
+        </div>
+        {% if result.foundby != "" %}
+        <div class="col-md-6 mt-2">
+            <h4>Matched Picture:</h4>
+            <div class="card">
+                <img src="/media/{{result.foundpicture}}" class="card-img-top" alt="...">
+              </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

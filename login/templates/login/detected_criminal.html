@@ -1,0 +1,47 @@
+{% extends 'login/police_basic.html' %}
+{% block title %}EIA (Police)-Detected Criminal{% endblock %}
+{% block css %}
+.card{
+    width:90%
+}
+.card-body{
+    text-align:left;
+}
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="row"> 
+        <div class="col-md-6 mt-4">
+            <h4>Criminal to be detected</h4>
+            <div class="card">
+                <img src="{{picture_url}}" class="card-img-top" alt="...">
+              </div>
+        </div>
+        <div class="col-md-6 mt-4">
+            {% if check %}
+            <h4>Match Found in Database</h4>
+            <div class="card">
+                <img src="/media/{{matched.picture}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <p><b>Name:</b> {{matched.firstname}} {{matched.lastname}}</p>
+                  <p><b>Criminal Id:</b> {{matched.criminalid}} </p>
+                  <a href="/login/criminalView/{{matched.criminalid}}" class="btn btn-dark">View previous Records</a>
+                </div>
+            </div>
+            {% else %}
+                <h4>Match Not found!</h4>
+                <div class="card">
+                    <img src="https://www.xaviermah.my/notfound.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p><h5>No such criminal exists in the database</h5></p>
+                        <p>Add criminal to the Database</p>
+                        <a href="/login/add_criminals" class="btn btn-dark">Add Criminal</a>
+
+                    </div>
+                  </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

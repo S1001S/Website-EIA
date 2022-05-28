@@ -1,0 +1,46 @@
+{% extends 'login/police_basic.html' %}
+{% block title %}EIA (Police)-Add Missing{% endblock %}
+{% block css %}
+.file{
+  margin-top:25px;
+  margin-bottom:25px;
+}
+.row{
+  margin-top:5px;
+}
+{% endblock %}
+{% block body %}
+<div class="container file">
+    <h3>Add Missing Case</h3>
+    <form class="row g-3" method="post" action="/login/add_missing/" enctype="multipart/form-data">{% csrf_token %}
+    <div class="col-md-6">
+      <label for="name" class="form-label"> Name</label>
+      <input type="text" class="form-control" id="name" name="name" required>
+    </div>
+    <div class="col-md-3">
+        <label for="age" class="form-label">Age</label>
+        <input type="text" class="form-control" id="age" name="age" required>
+    </div>
+    <div class="col-md-3">
+        <label for="gender" class="form-label">Gender</label>
+        <input type="text" class="form-control" id="gender" name="gender" required>
+    </div>
+    <div class="col-md-6">
+        <label for="contactperson" class="form-label"> Contact Person</label>
+        <input type="text" class="form-control" id="contactperson" name="contactperson" required>
+      </div>
+    <div class="col-md-6">
+        <label for="contactnumber" class="form-label">Contact Number</label>
+        <input type="tel" class="form-control" id="contactnumber" name="contactnumber" required>
+    </div>
+    
+    <div class="col-md-12">
+        <label for="picture" class="form-label">Picture of Missing</label>
+        <input type="file" class="form-control mt-2" id="picture" name="picture" accept="image/*" required>
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-dark">Add Case</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

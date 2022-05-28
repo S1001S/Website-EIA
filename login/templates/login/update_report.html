@@ -1,0 +1,30 @@
+{% extends 'login/police_basic.html' %}
+{% block title %}EIA (Police)-Update Report Status{% endblock %}
+{% block css %} 
+.container{
+    margin-top:25px;
+    margin-bottom:25px;
+}
+{% endblock %} 
+{% block body %} 
+<div class="container">
+    <h3>Enter Report Id & Name & Update</h3>
+    <form class="row g-3 mt-2" method="post" action="/login/update_report/{{result.report_id}}">{% csrf_token %}
+        <div class="col-md-6">
+            <label for="report_id" class="form-label">Report Id</label>
+            <input type="text" class="form-control" id="report_id" name="report_id" value="{{result.report_id}}" readonly>
+        </div>
+        <div class="col-md-6">
+            <label for="name" class="form-label">Report Filed By</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{result.name}}" readonly>
+        </div>
+        <div class="col-md-12">
+          <label for="update" class="form-label">Update</label>
+          <input type="text" class="form-control" id="update" name="update" required>
+        </div>
+        <div class="col-12">
+        <button type="submit" class="btn btn-dark">Update Report</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

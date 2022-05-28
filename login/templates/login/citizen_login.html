@@ -1,0 +1,44 @@
+{% extends 'login/citizen_basic.html' %}
+{% block title %}EIA (Citizen){% endblock %}
+{% block css %}
+    .card-body{
+        background-color: rgb(221, 243, 248);
+    }
+    .container{
+      margin-top:20px;
+      margin-bottom:20px;
+    }
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 mt-2">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">File a Report</h5>
+                  <p class="card-text">File a report regarding any issue here.</p>
+                  <a href="/login/file_report" class="btn btn-dark">File Report</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 mt-2">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Track Report Status</h5>
+                  <p class="card-text">Keep a track of your report status here.</p>
+                  <a href="/login/track_status" class="btn btn-dark">Track Status</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 mt-2">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Missing Help </h5>
+                  <p class="card-text">Help us in finding missing indiviuals here.</p>
+                  <a href="/login/missing_detect" class="btn btn-dark">Help</a>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,150 @@
+{% extends 'login/police_basic.html' %}
+{% block title %}EIA (Police)-All Criminals{% endblock %}
+{% block css %}
+    table,th,td{
+        border:1px solid black;
+        border-collapse:collapse;
+    }
+    th,td{
+        padding:20px;
+    }
+    table{
+        width:100%;
+    }
+    .container{
+        margin-top:25px;
+        margin-bottom:25px;
+    }
+    h3{
+        text-align:center;
+    }
+    hr{
+        opacity:0.9;
+    }
+{% endblock %}
+{% block body %} 
+<div class="container">
+    <div class="row mt-4">
+        <h3>All Criminal Records</h3>
+    </div>
+    <hr>
+    <table class="mt-4" id="mytable">
+        <thead>
+        <tr>
+        <th>Criminal Id</th>
+        <th>Name of Criminal</th>
+        <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in criminal reversed %} 
+        <tr>
+            <td>{{i.criminalid}}</td>
+            <td>{{i.firstname}}</td>
+            <td>
+                <a href="/login/criminalView/{{i.criminalid}}" class="btn btn-dark mt-1">View </a>
+                <a href="/login/update_criminal/{{i.criminalid}}" class="btn btn-dark mt-1">Update </a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="row justify-content-center mt-4">
+        <h3>Analysis of Criminal Matches</h3>
+        <hr>
+        <div class="col-md-6">
+          <h5>Location-Wise Analysis:</h5>
+          <canvas id="myChart" width="400" height="400"></canvas>
+          <script>
+              const ctx = document.getElementById('myChart').getContext('2d');
+              const myChart = new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                      labels: [{% for i in location %} '{{i}}', {% endfor %}],
+                      datasets: [{
+                          label: 'No.of Criminal Matches',
+                          data: [{% for i in times %} '{{i}}', {% endfor %}],
+                          backgroundColor: [
+                              'rgba(255, 99, 132, 0.8)',
+                              'rgba(54, 162, 235, 0.8)',
+                              'rgba(255, 206, 86, 0.8)',
+                              'rgba(75, 192, 192, 0.8)',
+                              'rgba(153, 102, 255, 0.8)',
+                              'rgba(255, 159, 64, 0.8)'
+                          ],
+                          borderColor: [
+                              'rgba(255, 99, 132, 1)',
+                              'rgba(54, 162, 235, 1)',
+                              'rgba(255, 206, 86, 1)',
+                              'rgba(75, 192, 192, 1)',
+                              'rgba(153, 102, 255, 1)',
+                              'rgba(255, 159, 64, 1)'
+                          ],
+                          borderWidth: 1
+                      }]
+                  },
+                  options: {
+                      scales: {
+                          y: {
+                              beginAtZero: true
+                          }
+                      }
+                  }
+              });
+          </script>
+        </div>
+        <div class="col-md-6">
+            <h5>Time-Wise Analysis:</h5>
+            <canvas id="myChart1"></canvas>
+            <script>
+                const ctx1 = document.getElementById('myChart1').getContext('2d');
+                const myChart1 = new Chart(ctx1, {
+                    type: 'line',
+                    data: {
+                        labels: [{% for i in spottime %} 
+                                    '{{i}}:00-{{forloop.counter}}:00', {% endfor %}],
+                        datasets: [{
+                            label: 'No.of times Spotted',
+                            data: [{% for i in ttimes %} '{{i}}', {% endfor %}],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.8)',
+                                'rgba(54, 162, 235, 0.8)',
+                                'rgba(255, 206, 86, 0.8)',
+                                'rgba(75, 192, 192, 0.8)',
+                                'rgba(153, 102, 255, 0.8)',
+                                'rgba(255, 159, 64, 0.8)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            </script>
+            </div>
+      </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    $(document).ready(function(){
+        $('#mytable').DataTable();
+    });
+    $('#mytable').DataTable({
+        "sDom":"ftipr"
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'login/citizen_basic.html' %}
+{% block title %}EIA (Citizen)-Help Find Missing{% endblock %}
+{% block css %}
+.container{
+  margin-top:25px;
+  margin-bottom:25px;
+}
+{% endblock %}
+{% block body %}
+<div class="container">
+    <h3>Detect Person from Our Missing List</h3>
+    <form class="row g-3" method="post" action="/login/missing_detect/" enctype="multipart/form-data">{% csrf_token %}
+    <div class="col-md-4">
+      <label for="name" class="form-label">Your Name</label>
+      <input type="text" class="form-control" id="name" name="name" value="{{user.first_name}} {{user.last_name}}" readonly>
+    </div>
+    <div class="col-md-4">
+      <label for="mobile" class="form-label">Your Mobile Number</label>
+      <input type="tel" class="form-control" id="mobile" name="mobile" required>
+    </div>
+    <div class="col-md-4">
+      <label for="email" class="form-label">Your email</label>
+      <input type="email" class="form-control" id="email" name="email" value="{{user.email}}" required>
+    </div>
+    <div class="col-md-12">
+        <label for="picture" class="form-label">Picture</label>
+        <input type="file" class="form-control" id="picture" name="picture" accept="image/*" required>
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-dark">Detect</button>
+    </div>
+
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'login/police_basic.html' %}
+{% block title %}EIA (Police)-Detected Criminal{% endblock %}
+{% block css %}
+    table,th,td{
+        border:1px solid black;
+        border-collapse:collapse;
+    }
+    th,td{
+        padding:20px;
+    }
+    table{
+        width:100%;
+    }
+    .container{
+        margin-top:25px;
+        margin-bottom:25px;
+    }
+    h3{
+        text-align:center;
+    }
+    hr{
+        opacity:0.9;
+    }
+{% endblock %}
+{% block body %} 
+<div class="container">
+    <div class="row mt-4">
+        <h3>Criminal Matches from the video </h3>
+    </div>
+    <hr>
+    <table class="mt-4" id="mytable">
+        <thead>
+        <tr>
+        <th>Criminal Id</th>
+        <th>Name of Criminal</th>
+        <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in criminal reversed %} 
+        <tr>
+            <td>{{i.criminalid}}</td>
+            <td>{{i.firstname}}</td>
+            <td>
+                <a href="/login/criminalView/{{i.criminalid}}" class="btn btn-dark mt-1">View </a>
+                <a href="/login/update_criminal" class="btn btn-dark mt-1">Update </a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    $(document).ready(function(){
+        $('#mytable').DataTable();
+    });
+    $('#mytable').DataTable({
+        "sDom":"ftipr"
+    })
+</script>
+{% endblock %}

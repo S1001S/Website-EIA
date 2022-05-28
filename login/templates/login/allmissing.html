@@ -1,0 +1,66 @@
+{% extends 'login/police_basic.html' %}
+{% block title %}EIA (Police)-All Missing{% endblock %}
+{% block css %}
+    table,th,td{
+        border:1px solid black;
+        border-collapse:collapse;
+    }
+    th,td{
+        padding:20px;
+    }
+    table{
+        width:100%;
+    }
+    .rpt{
+        margin-top:25px;
+        margin-bottom:25px;
+    }
+    h3{
+        text-align:center;
+    }
+    hr{
+        opacity:0.9;
+    }
+{% endblock %}
+{% block body %} 
+<div class="container  table-responsive rpt">
+    <div class="row mt-2">
+        <h3>All Missing Records</h3>
+    </div>
+    <hr>
+    <table class="table mt-4" id="mytable">
+        <thead>
+        <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in missing %} 
+        <tr>
+            <td>{{i.name}}</td>
+            {% if i.foundby != "" %}
+            <td> Found</td>
+            {% else %}
+            <td>Missing</td>
+            {% endif %}
+            <td>
+                <a href="/login/missingView/{{i.id}}" class="btn btn-dark mt-1">View </a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    $(document).ready(function(){
+        $('#mytable').DataTable();
+    });
+    $('#mytable').DataTable({
+        "sDom":"ftipr"
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'login/police_basic.html' %}
+{% block title %}EIA (Police)-Update Criminal Record{% endblock %}
+{% block css %} 
+.container{
+  margin-top:25px;
+  margin-bottom:25px;
+}
+{% endblock %} 
+{% block body %} 
+<div class="container">
+  <h3>Enter Criminal Id & Name & Update</h3>
+    <form class="row g-3 mt-2" method="post" action="/login/update_criminal/{{result.criminalid}}">{% csrf_token %}
+        <div class="col-md-6">
+            <label for="criminalid" class="form-label">Criminal Id</label>
+            <input type="text" class="form-control" id="criminalid" name="criminalid" value="{{result.criminalid}}" readonly>
+        </div>
+        <div class="col-md-6">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{result.firstname}} {{result.lastname}}" readonly>
+        </div>
+        <div class="col-md-12">
+          <label for="updatecrime" class="form-label">Update Crime</label>
+          <input type="text" class="form-control" id="updatecrime" name="updatecrime">
+        </div>
+        <div class="col-md-12">
+          <label for="updatelocations" class="form-label">Update Locations Spotted:</label>
+          <input type="text" class="form-control" id="updatelocations" name="updatelocations" required>
+        </div>
+        <div class="col-md-4">
+          <label for="lat" class="form-label">Latitude Position:</label>
+          <input type="text" class="form-control" id="lat" name="lat" required>
+        </div>
+        <div class="col-md-4">
+          <label for="lng" class="form-label">Longitude Position:</label>
+          <input type="text" class="form-control" id="lng" name="lng" required>
+        </div>
+        <div class="col-md-4">
+          <label for="timespot" class="form-label">Spotted At Time:</label>
+          <input type="time" class="form-control" id="timespot" name="timespot" required>
+        </div>
+        <div class="col-12">
+        <button type="submit" class="btn btn-dark">Update</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'login/police_basic.html' %}
+{% block title %}EIA (Police)-Detect Criminal{% endblock %}
+{% block css %}
+.container{
+    margin-top:25px;
+    margin-bottom:25px;
+}
+{% endblock %}
+{% block body %}
+<div class="container">
+    <h2>Detect Criminal from the Database (Image)</h2>
+    <form class="row g-3" method="post" action="/login/detect_criminal/" enctype="multipart/form-data">{% csrf_token %}
+        <div class="col-md-12">
+            <label for="picture" class="form-label">Picture of Criminal</label>
+            <input type="file" class="form-control" id="picture" name="picture" accept="image/*" required>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-dark">Detect</button>
+        </div>
+    </form>
+</div>
+<div class="container">
+    <h2>Detect Criminal from the Database (Video)</h2>
+    <form class="row g-3" method="post" action="/login/detect_criminal_video/" enctype="multipart/form-data">{% csrf_token %}
+        <div class="col-md-12">
+            <label for="video" class="form-label">Upload Video here</label>
+            <input type="file" class="form-control" id="video" name="video" accept="video/*" required>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-dark">Detect</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,165 @@
+{% extends 'login/police_basic.html' %}
+{% block title %}EIA (Police)-Criminal Details{% endblock %}
+{% block css %} 
+.container{
+    margin-top:25px;
+    margin-bottom:25px;
+}
+{% endblock %} 
+{% block body %} 
+
+<div class="container">
+    <p><h3>Criminal ID: {{result.criminalid}}</h3></p>
+    <p><b>Name: </b>{{result.firstname}} {{result.lastname}}</p>
+    <p><b>Age: </b>{{result.age}}</p>
+    <p><b>Gender: </b>{{result.gender}}</p>
+    <p><b>Residence: </b>{{result.residence}}</p>
+    <p><b>Link to Image in Database: </b>
+    <a href="/media/{{result.picture}}">Image</a>
+    </p>
+    <div class="col my-4">
+        <h4>Crime Updates:</h4>
+        <table class="table mt-4" id="mytable1">
+            <thead>
+            <tr>
+            <th>Crime</th>
+            <th>Updated On:</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in update reversed %} 
+                {% if i.update_crime != "" %}
+                <tr>
+                    <td>{{i.update_crime}}</td>
+                    <td>{{i.timestamp}}</td>
+                        
+                </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+            </table>
+    </div>
+    <div class="col my-4">
+        <h4>Locations Detected:</h4>
+        <table class="table mt-4" id="mytable">
+            <thead>
+            <tr>
+            <th>Location</th>
+            <th>Time</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in update reversed %} 
+                {% if i.update_locations != "" %}
+                <tr>
+                    <td>{{i.update_locations}} (<a href="/login/map_view/{{i.update_id}}">View on Map</a>)</td>
+                    <td>{{i.time}}</td>
+                        
+                </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+            </table>
+        </div>
+        <a href="/login/update_criminal/{{result.criminalid}}" class="btn btn-dark">Update Criminal Details</a>
+        <div class="row justify-content-center mt-4">
+        <div class="col-md-6">
+            <h4>Analysis of Locations Spotted At:</h4>
+            <canvas id="myChart"></canvas>
+            <script>
+                const ctx = document.getElementById('myChart').getContext('2d');
+                const myChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: [{% for i in location %} '{{i}}', {% endfor %}],
+                        datasets: [{
+                            label: 'No.of times Spotted',
+                            data: [{% for i in times %} '{{i}}', {% endfor %}],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.8)',
+                                'rgba(54, 162, 235, 0.8)',
+                                'rgba(255, 206, 86, 0.8)',
+                                'rgba(75, 192, 192, 0.8)',
+                                'rgba(153, 102, 255, 0.8)',
+                                'rgba(255, 159, 64, 0.8)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            </script>
+            </div>
+        <div class="col-md-6">
+            <h4>Analysing Time of Detection:</h4>
+            <canvas id="myChart1"></canvas>
+            <script>
+                const ctx1 = document.getElementById('myChart1').getContext('2d');
+                const myChart1 = new Chart(ctx1, {
+                    type: 'line',
+                    data: {
+                        labels: [{% for i in spottime %} 
+                                    '{{i}}:00-{{forloop.counter}}:00', {% endfor %}],
+                        datasets: [{
+                            label: 'No.of times Spotted',
+                            data: [{% for i in ttimes %} '{{i}}', {% endfor %}],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.8)',
+                                'rgba(54, 162, 235, 0.8)',
+                                'rgba(255, 206, 86, 0.8)',
+                                'rgba(75, 192, 192, 0.8)',
+                                'rgba(153, 102, 255, 0.8)',
+                                'rgba(255, 159, 64, 0.8)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            </script>
+            </div>
+        </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    $(document).ready(function(){
+        $('#mytable').DataTable();
+        $('#mytable1').DataTable();
+    });
+    $('#mytable').DataTable({
+        "sDom":"ftipr"
+    })
+    $('#mytable1').DataTable({
+        "sDom":"ftipr"
+    })
+</script>
+{% endblock %}

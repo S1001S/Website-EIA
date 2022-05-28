@@ -1,0 +1,62 @@
+{% extends 'login/police_basic.html' %}
+{% block title %}EIA (Police)-Add Criminals{% endblock %}
+{% block css %}
+.container{
+  margin-top:25px;
+  margin-bottom:25px;
+}   
+{% endblock %}
+{% block body %}
+<div class="container">
+    <h2>Add Criminals to the Database</h2>
+    <form class="row g-3" method="post" action="/login/add_criminals/" enctype="multipart/form-data">{% csrf_token %}
+    <div class="col-md-6">
+      <label for="firstname" class="form-label">First Name</label>
+      <input type="text" class="form-control" id="firstname" name="firstname" required>
+    </div>
+    <div class="col-md-6">
+      <label for="lastname" class="form-label">Last Name</label>
+      <input type="text" class="form-control" id="lastname" name="lastname" required>
+    </div>
+    <div class="col-md-4">
+      <label for="criminalid" class="form-label">Criminal ID</label>
+      <input type="text" class="form-control" id="criminalid" name="criminalid" required>
+    </div>
+    <div class="col-md-4">
+      <label for="age" class="form-label">Age</label>
+      <input type="text" class="form-control" id="age" name="age" required>
+    </div>
+    <div class="col-md-4">
+      <label for="gender" class="form-label">Gender</label>
+      <input type="text" class="form-control" id="gender" name="gender" required>
+    </div>
+    <div class="mb-3">
+        <label for="crime" class="form-label">Crime</label>
+        <textarea class="form-control" id="crime" name="crime" rows="3" required></textarea>
+    </div>
+    <div class="col-md-3">
+        <label for="location" class="form-label">Location</label>
+        <input type="text" class="form-control" id="location" name="location" required></input>
+    </div>
+    <div class="col-md-3">
+        <label for="lat" class="form-label">Latitude</label>
+        <input type="text" class="form-control" id="lat" name="lat" required></input>
+    </div>
+    <div class="col-md-3">
+        <label for="lng" class="form-label">Longitude</label>
+        <input type="text" class="form-control" id="lng" name="lng" required></input>
+    </div>
+    <div class="col-md-3">
+        <label for="time" class="form-label">Time of Incident</label>
+        <input type="time" class="form-control" id="time" name="time" required></input>
+    </div>
+    <div class="col-md-12">
+        <label for="picture" class="form-label">Picture of Criminal</label>
+        <input type="file" class="form-control" id="picture" name="picture" accept="image/*" required>
+    </div>
+    <div class="col-md-12">
+      <button type="submit" class="btn btn-dark">Add to Database</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

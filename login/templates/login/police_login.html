@@ -1,0 +1,73 @@
+{% extends 'login/police_basic.html' %}
+{% block title %}EIA (Police){% endblock %}
+{% block css %}
+.container{
+  margin-top:25px;
+  margin-bottom:25px;
+}
+.card-body{
+  background-color: rgb(221, 243, 248);
+}
+{% endblock %}
+{% block body %}
+<div class="container">
+        <div class="row">
+            <div class="col-sm-4 mt-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Add Criminals</h5>
+                  <p class="card-text">Add Criminals to the database from here.</p>
+                  <a href="/login/add_criminals" class="btn btn-dark">Add Criminal</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 mt-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Detect Criminals</h5>
+                  <p class="card-text">Detect Criminals from image or video here.</p>
+                  <a href="/login/detect_criminal" class="btn btn-dark">Detect</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 mt-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Add Missing Cases</h5>
+                  <p class="card-text">Add missing cases to the database from here.</p>
+                  <a href="/login/add_missing" class="btn btn-dark">Add Case</a>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 mt-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">View all Criminal Records</h5>
+                  <p class="card-text">View all criminal records that are existing in the database.</p>
+                  <a href="/login/allcriminals" class="btn btn-dark">View Records</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 mt-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">View All Reports Filed</h5>
+                  <p class="card-text">View all filed reports that are present in the database.</p>
+                  <a href="/login/allreports" class="btn btn-dark">View Reports</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 mt-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">View all Missing Records</h5>
+                  <p class="card-text">View all missing records that are existing in the database.</p>
+                  <a href="/login/allmissing" class="btn btn-dark">View Records</a>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+{% endblock %}

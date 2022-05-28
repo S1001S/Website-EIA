@@ -1,0 +1,63 @@
+{% extends 'login/police_basic.html' %}
+{% block title %}EIA (Police)-All Reports{% endblock %}
+{% block css %}
+    table,th,td{
+        border:1px solid black;
+        border-collapse:collapse;
+    }
+    th,td{
+        padding:20px;
+    }
+    table{
+        width:100%;
+    }
+    .rpt{
+        margin-top:25px;
+        margin-bottom:25px;
+    }
+    h3{
+        text-align:center;
+    }
+    hr{
+        opacity:0.9;
+    }
+{% endblock %}
+{% block body %} 
+<div class="container rpt">
+    <div class="row mt-4">
+        <h3>All Reports Filed</h3>
+    </div>
+    <hr>
+    <table id="mytable">
+        <thead>
+        <tr>
+        <th>Report Id</th>
+        <th>Report Filed by</th>
+        <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in report reversed %} 
+        <tr>
+            <td>{{i.report_id}}</td>
+            <td>{{i.name}}</td>
+            <td>
+                <a href="/login/reportView/{{i.report_id}}" class="btn btn-dark mt-1">View </a>
+                <a href="/login/update_report/{{i.report_id}}" class="btn btn-dark mt-1">Update </a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    $(document).ready(function(){
+        $('#mytable').DataTable();
+    });
+    $('#mytable').DataTable({
+        "sDom":"ftipr"
+    })
+</script>
+{% endblock %}

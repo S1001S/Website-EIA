@@ -1,0 +1,77 @@
+{% extends 'login/citizen_basic.html' %}
+{% block title %}EIA (Citizen)-Track Report Status{% endblock %}
+{% block css %}
+.container{
+    margin-top:25px;
+    margin-bottom:25px;
+}
+{% endblock %}
+{% block body %} 
+<div class="container">
+    <form class="row g-3 mt-2" method="post" action="#" id="trackstatus">{% csrf_token %}
+        <h3>Enter Your Report Id and Aadhar Number</h3>
+        <div class="col-md-6">
+            <label for="report_id" class="form-label">Report Id</label>
+            <input type="text" class="form-control" id="report_id" name="report_id" required>
+        </div>
+        <div class="col-md-6">
+            <label for="aadhar" class="form-label">Aadhar Number</label>
+            <input type="text" class="form-control" id="aadhar" name="aadhar" value="{{user.username}}" readonly>
+        </div>
+        <div class="col-12">
+        <button type="submit" class="btn btn-dark">Track Report Status</button>
+        </div>
+    </form>
+    <div class="col my-4">
+        <h3>Report Status:</h3>
+            <div class="my-4">
+                <ul class="list-group" id="stat">
+                </ul>
+            </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    $('#trackstatus').submit(function(event){
+
+        $('#stat').empty();
+    
+        var formData={
+            'report_id':$('input[name=report_id]').val(),
+            'aadhar':$('input[name=aadhar]').val(),
+            'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val()
+        };
+
+        $.ajax({
+            type:'POST',
+            url:'',
+            data:formData,
+            encode:true 
+
+        })
+
+        .done(function(data){
+            data=JSON.parse(data);
+            if(data['status']=="success")
+            {
+                updates=data['updates'];
+                for(i=0;i<updates.length;i++)
+                {
+                    let text=updates[i]['text'];
+                    let time=updates[i]['time'].slice(0,19);
+                    mystr=`<li class="list-group-item d-flex justify-content-between align-items-center">${text}<span>${time}</span></li>`
+                    $('#stat').append(mystr);
+                }
+            }
+            else
+            {
+                mystr=`<li class="list-group-item d-flex justify-content-between align-items-center"><p> Sorry! We are not able to track your report status. Please verify the entered details once again</p></li>`
+                    $('#stat').append(mystr);
+            }
+        });
+        event.preventDefault();
+    });
+
+</script> 
+{% endblock %}
